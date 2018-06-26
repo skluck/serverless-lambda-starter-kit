@@ -1,0 +1,39 @@
+service: 'skluck-hello-world'
+
+# You can pin your service to only deploy with a specific Serverless version
+# frameworkVersion: "=X.X.X"
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: false
+    packager: 'yarn'
+
+provider:
+  name: aws
+  runtime: nodejs.10
+  role: 'default-lambda-role'
+  environment:
+    variable1: value1
+
+  stage: dev
+  region: 'us-east-1'
+
+package:
+  individually: true
+
+functions:
+  hello:
+    handler: src/handlers/HelloWorld
+    events:
+      - http:
+          path: users/info
+          method: get
+
+  scheduled:
+    handler: src/handlers/Scheduled
+    events:
+      - schedule: rate(10 minutes)

@@ -1,0 +1,16 @@
+{
+  "name": "@skluck/serverless-hello-world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "serverless": "^1.27.3",
+    "serverless-webpack": "^5.1.5",
+    "webpack": "^4.12.1"
+  }
+}
