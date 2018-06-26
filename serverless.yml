@@ -12,6 +12,8 @@ custom:
     includeModules: false
     packager: 'yarn'
 
+# https://github.com/shashanktomar/serverless-webpack-babel-boilerplate
+
 provider:
   name: aws
   runtime: nodejs.10
