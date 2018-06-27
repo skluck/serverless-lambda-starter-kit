@@ -1,4 +1,4 @@
-function HelloWorld(event, context, callback) {
+const handler = (event, context, callback) => {
   const response = {
     message: 'Go Serverless v1.0! Your function executed successfully!',
     input: event,
@@ -8,6 +8,6 @@ function HelloWorld(event, context, callback) {
     statusCode: 200,
     body: JSON.stringify(response),
   });
-}
+};
 
-export { HelloWorld };
+export { handler };

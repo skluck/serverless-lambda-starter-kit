@@ -1,8 +1,5 @@
 service: 'skluck-hello-world'
 
-# You can pin your service to only deploy with a specific Serverless version
-# frameworkVersion: "=X.X.X"
-
 plugins:
   - serverless-webpack
 
@@ -12,30 +9,28 @@ custom:
     includeModules: false
     packager: 'yarn'
 
-# https://github.com/shashanktomar/serverless-webpack-babel-boilerplate
-
 provider:
   name: aws
-  runtime: nodejs.10
-  role: 'default-lambda-role'
+  runtime: nodejs8.10
+  role: ${env:SERVERLESS_${opt:stage}_ROLE, 'default-lambda-role'}
   environment:
-    variable1: value1
+    NODE_ENV: ${opt:stage}
 
-  stage: dev
-  region: 'us-east-1'
+  stage: ${opt:stage}
+  region: ${env:SERVERLESS_${opt:stage}_REGION 'us-east-2'}
 
 package:
   individually: true
 
 functions:
   hello:
-    handler: src/handlers/HelloWorld
+    handler: 'src/handlers/hello.handler'
     events:
       - http:
           path: users/info
           method: get
 
   scheduled:
-    handler: src/handlers/Scheduled
+    handler: 'src/handlers/scheduled.handler'
     events:
       - schedule: rate(10 minutes)
