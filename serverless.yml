@@ -12,12 +12,16 @@ custom:
 provider:
   name: aws
   runtime: nodejs8.10
-  role: ${env:SERVERLESS_${opt:stage}_ROLE, 'default-lambda-role'}
-  environment:
-    NODE_ENV: ${opt:stage}
+  profile: default
+  stage:  'dev'                                  # Set with --stage $stage
+  region: ${env:AWS_DEFAULT_REGION, 'us-east-2'} # Set with --region $region
 
-  stage: ${opt:stage}
-  region: ${env:SERVERLESS_${opt:stage}_REGION 'us-east-2'}
+  environment:
+    NODE_ENV: ${self:provider.stage}
+
+  role: ${env:SERVERLESS_${self:provider.stage}_ROLE}
+  deploymentBucket:
+    name: ${env:SERVERLESS_${self:provider.stage}_BUCKET}
 
 package:
   individually: true
